@@ -1,0 +1,52 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+		{
+			"label": "cmake-configure",
+			"type": "shell",
+			"command": "mkdir -p build && cd build && cmake ..",
+			"group": "build",
+			"problemMatcher": []
+		},
+		{
+			"label": "cmake-build",
+			"type": "shell",
+			"command": "cd build && cmake --build .",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"dependsOn": [
+				"cmake-configure"
+			],
+			"problemMatcher": "$gcc"
+		},
+		{
+			"label": "clean",
+			"type": "shell",
+			"command": "cd build && make clean",
+			"group": "build",
+			"problemMatcher": []
+		},
+		{
+			"label": "run-demo",
+			"type": "shell",
+			"command": "cd build && ./hashdict_demo",
+			"group": "test",
+			"dependsOn": [
+				"cmake-build"
+			],
+			"problemMatcher": []
+		},
+		{
+			"label": "run-tests",
+			"type": "shell",
+			"command": "cd build && ctest --output-on-failure",
+			"group": "test",
+			"dependsOn": [
+				"cmake-build"
+			],
+			"problemMatcher": []
+		}
+	]
+}
